@@ -1,0 +1,10 @@
+Информация запрашиваемая в ТЗ:
+ - Магомедов Багаудин
+
+ - Копипаста для .env файла:
+    POSTGRES_USER=shops_user
+    POSTGRTES_PASSWORD=whatever_password123
+    POSTGRES_DATABASE=shops_db
+    SECRET_KEY=django-insecure-=3xw@)7cqdx3d)n!n68%0j%%wwks@$x*qrllxl)o=(pp9z(g&+
+   (Естественно в открытом виде это хранить нельзя, но этого файла быть не должно, он тут по требованию
+    предпоследнего пункта ТЗ)

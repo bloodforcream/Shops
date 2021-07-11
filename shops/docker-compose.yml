@@ -1,0 +1,44 @@
+version: "2"
+
+services:
+  core:
+    container_name: core_container
+    stdin_open: true
+    tty: true
+    build: .
+    command: bash -c "python manage.py migrate --noinput && gunicorn shops.wsgi:application --bind 0.0.0.0:8000"
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./:/src
+    expose:
+      - 8000
+    links:
+      - postgres_db
+    depends_on:
+      - postgres_db
+
+  postgres_db:
+    image: postgres:9.6.16
+    container_name: postgres_db
+    volumes:
+      - database:/var/lib/postgresql/data/
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRTES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "8000:8000"
+    links:
+      - core
+    depends_on:
+      - core
+
+volumes:
+  database:
